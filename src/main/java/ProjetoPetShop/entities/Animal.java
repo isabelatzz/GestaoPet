@@ -1,8 +1,9 @@
 package ProjetoPetShop.entities;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Animal {
+public class Animal implements Serializable {
     private int codigo;
     private String nome;
     private String especie;

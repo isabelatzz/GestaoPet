@@ -1,5 +1,9 @@
 package ProjetoPetShop.entities;
 
+
+//CLASSE INCOMPLETA. IRÁ SER COMPLETADA -- LÓGICA = CONSULTA
+
+
 public class Banho extends Servico{
     private boolean usarPerfume;
     private double valorPerfume= 15.0;
@@ -10,7 +14,7 @@ public class Banho extends Servico{
     }
 
     @Override
-    public double calcularValorParcial() {
+    public double calcularValorTotal() {
         if(usarPerfume){
             return this.getValorBase()+this.valorPerfume;
         } else {

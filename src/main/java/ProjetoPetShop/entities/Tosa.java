@@ -1,5 +1,7 @@
 package ProjetoPetShop.entities;
 
+//CLASSE INCOMPLETA. IRÁ SER COMPLETADA -- LÓGICA = CONSULTA
+
 public class Tosa extends Servico{
     private boolean adicionarAcc;
     private double valoraAcc;
@@ -10,7 +12,7 @@ public class Tosa extends Servico{
     }
 
     @Override
-    public double calcularValorParcial() {
+    public double calcularValorTotal() {
         if (adicionarAcc) {
             return this.getValorBase() + this.valoraAcc;
         } else {
