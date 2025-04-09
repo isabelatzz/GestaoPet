@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Representa o Tutor do animal de estimação no sistema do PetLover.
+ * Cada Tutor está associado a um Animal.
+ */
+
+
 public class Tutor implements Serializable {
     private String nome;
     private String cpf;

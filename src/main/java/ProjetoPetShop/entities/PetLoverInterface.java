@@ -2,7 +2,7 @@ package ProjetoPetShop.entities;
 
 import java.util.List;
 
-public interface PetLovInterface {
+public interface PetLoverInterface {
     /* Métodos de Animais */
     void cadastrarAnimal (Animal animal);
     Animal buscarAnimalPorID (int id);
@@ -21,7 +21,8 @@ public interface PetLovInterface {
     void imprimirRecibo (int idServico);
     List<Servico> listarServicosPendentes ();
 
-    /* Prováveis Futuros Métodos Para Serviços */
+    /** Prováveis Futuros Métodos Para Serviços
+
     void agendarConsulta(Consulta consulta);
     void agendarBanho(Banho banho);
     void agendarTosa(Tosa tosa);
@@ -31,5 +32,6 @@ public interface PetLovInterface {
     List<Servico> listarServicosPorAnimal(int idAnimal);
     List<Servico> listarServicosPorTutor(String cpfTutor);
 
+     */
 
 }

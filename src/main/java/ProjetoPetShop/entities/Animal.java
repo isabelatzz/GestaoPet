@@ -3,6 +3,11 @@ package ProjetoPetShop.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Representa um animal de estimação no sistema do PetLover.
+ * Cada animal está associado a um Tutor.
+ */
+
 public class Animal implements Serializable {
     private int codigo;
     private String nome;
@@ -58,6 +63,9 @@ public class Animal implements Serializable {
     }
 
     public void setIdade(int idade) {
+        if(idade < 0) {
+            throw new IllegalArgumentException("Idade não pode ser negativa");
+        }
         this.idade = idade;
     }
 

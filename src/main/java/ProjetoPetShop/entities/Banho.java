@@ -17,16 +17,12 @@ public class Banho extends Servico {
 
     @Override
     protected String getDetalhesServico() {
-        return String.format(
-                "Tamanho: %s\n" +
-                        "Acréscimo (%%): %.2f\n" +
-                        "Valor Acréscimo: R$ %.2f\n" +
-                        "Descrição: %s\n",
-                getTamanho(),
-                getPercentualAcrescimoTamanho(),
-                calcularAcrescimo(),
-                descricao
-        );
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("║ Tamanho: %-26s ║\n", getTamanho()));
+        sb.append(String.format("║ Acréscimo (%%): %-19.2f ║\n", getPercentualAcrescimoTamanho()));
+        sb.append(String.format("║ Valor Acréscimo: R$ %-16.2f ║\n", calcularAcrescimo()));
+        sb.append(String.format("║ Descrição: %-24s ║\n", descricao));
+        return sb.toString();
     }
 
 

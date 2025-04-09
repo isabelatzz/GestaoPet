@@ -42,25 +42,25 @@ public class Consulta extends Servico{
     public double getValorVacina() {
         return valorVacina;
     }
-
     public void setValorVacina(double valorVacina) {
         this.valorVacina = valorVacina;
     }
 
 
+
     public double getValorMedicamento() {
         return valorMedicamento;
     }
-
     public void setValorMedicamento(double valorMedicamento) {
         this.valorMedicamento = valorMedicamento;
     }
 
+
     public String getDescricao() {
         return descricao;
     }
-
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
 }
