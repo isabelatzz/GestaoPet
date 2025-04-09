@@ -1,40 +1,41 @@
 package ProjetoPetShop.entities;
 
 
-//CLASSE INCOMPLETA. IRÁ SER COMPLETADA -- LÓGICA = CONSULTA
+public class Banho extends Servico {
+    private String descricao;
 
-
-public class Banho extends Servico{
-    private boolean usarPerfume;
-    private double valorPerfume= 15.0;
-
-    public Banho(int id, Animal animal, double valorBase, boolean usarPerfume) {
-        super(id, animal, valorBase);
-        this.usarPerfume = usarPerfume;
+    public Banho(int id, Animal animal, double valorBase, String veterinario, String descricao, Tamanho tamanho
+            , double acrescimoTamanho) {
+        super(id, animal, valorBase, veterinario, tamanho, acrescimoTamanho);
+        this.descricao = descricao;
     }
 
     @Override
     public double calcularValorTotal() {
-        if(usarPerfume){
-            return this.getValorBase()+this.valorPerfume;
-        } else {
-            return this.getValorBase();
-        }
+        return getValorBase() + calcularAcrescimo();
     }
 
-    public boolean isUsarPerfume() {
-        return usarPerfume;
+    @Override
+    protected String getDetalhesServico() {
+        return String.format(
+                "Tamanho: %s\n" +
+                        "Acréscimo (%%): %.2f\n" +
+                        "Valor Acréscimo: R$ %.2f\n" +
+                        "Descrição: %s\n",
+                getTamanho(),
+                getPercentualAcrescimoTamanho(),
+                calcularAcrescimo(),
+                descricao
+        );
     }
 
-    public void setUsarPerfume(boolean usarPerfume) {
-        this.usarPerfume = usarPerfume;
+
+    public String getDescricao() {
+        return descricao;
+    }
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public double getValorPerfume() {
-        return valorPerfume;
-    }
-
-    public void setValorPerfume(double valorPerfume) {
-        this.valorPerfume = valorPerfume;
-    }
 }
+

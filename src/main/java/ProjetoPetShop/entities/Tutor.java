@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class Tutor implements Serializable {
     private String nome;
-    private Integer cpf;
+    private String cpf;
     private String telefone;
     private String endereço;
     private String email;
@@ -15,7 +15,7 @@ public class Tutor implements Serializable {
 
     public Tutor(String nome, String cpf, String telefone, String endereço, String email) {
         this.nome = nome;
-        this.cpf = Integer.valueOf(cpf);
+        this.cpf = cpf;
         this.telefone = telefone;
         this.endereço = endereço;
         this.email = email;
@@ -28,10 +28,10 @@ public class Tutor implements Serializable {
         this.nome = nome;
     }
 
-    public Integer getCpf() {
+    public String getCpf() {
         return cpf;
     }
-    public void setCpf(Integer cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
