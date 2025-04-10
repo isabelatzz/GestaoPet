@@ -6,7 +6,7 @@ import ProjetoPetShop.entities.Banho;
 import ProjetoPetShop.entities.Tamanho;
 import ProjetoPetShop.entities.Tutor;
 
-public class TesteClasseBANHO {
+public class TesteClasseBanho {
     public static void main (String[] args) {
         Tutor tutor = new Tutor ("Maria Isabela", "155.090.224-50", "83 996091896",
                 "Rua São Joao, Itapororoca", "araujobelinha@hotmail.com");

@@ -1,5 +1,6 @@
 package ProjetoPetShop.entities;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -59,7 +60,6 @@ public abstract class Servico {
                 pago ? "PAGO" : "PENDENTE"
         );
     }
-
 
 
     protected double calcularAcrescimo() {

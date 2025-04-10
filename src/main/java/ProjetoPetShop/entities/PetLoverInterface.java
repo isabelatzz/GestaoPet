@@ -16,11 +16,6 @@ public interface PetLoverInterface {
     Tutor buscarTutorPorCpf(String cpf);
     List<Tutor> listarTodosTutores();
 
-    /* Métodos de Recibos */
-    String gerarRecibo (int idServico);
-    void imprimirRecibo (int idServico);
-    List<Servico> listarServicosPendentes ();
-
     /** Prováveis Futuros Métodos Para Serviços
 
     void agendarConsulta(Consulta consulta);
