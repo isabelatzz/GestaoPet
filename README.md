@@ -1,12 +1,11 @@
-# 🐾 GestaoPet
+# 🐾 PetLover (Sistema de Gestão para PetShops)
 
 > Projeto em andamento para gestão de pet shops com interface gráfica em Java Swing.
 
 ## 📌 Sobre o Projeto
 
-O **GestaoPet** é um sistema de gerenciamento para pet shops que está sendo desenvolvido com **Java** para desktop, utilizando **Java Swing** na construção da interface gráfica.  
-O objetivo do projeto é facilitar o controle de **animais**, **tutores**, **serviços** e a **geração de recibos** em estabelecimentos veterinários e de cuidados animais.
-
+O **PetLover** é um sistema de gerenciamento para pet shops, feito em **Java para desktop**, utilizando **Java Swing** para a interface gráfica.  
+Seu objetivo é facilitar o controle de **animais**, **tutores**, **serviços veterinários** e **emissão de recibos**, otimizando a rotina do pet shop **PetLover**.
 Este repositório representa a fase inicial do projeto e ainda está em desenvolvimento.
 
 ---
