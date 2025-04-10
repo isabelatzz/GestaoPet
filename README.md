@@ -26,6 +26,7 @@ Este repositório representa a fase inicial do projeto e ainda está em desenvol
 ## 📌 Próximos passos  
   - Implementar interface gráfica com Swing
   - Integrar com persistência de dados em arquivos
+  - Implementar testes JUnit para garantir a qualidade do sistema
    
 ## 🛠️ Tecnologias Utilizadas
 
