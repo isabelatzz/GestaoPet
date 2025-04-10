@@ -6,12 +6,11 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class PDFRecibo implements PDFReciboManager {
+public class PDFRecibo implements PDFReciboInterface {
 
     @Override
     public void gerarPDF(String conteudoRecibo, String nomeArquivo) throws IOException {

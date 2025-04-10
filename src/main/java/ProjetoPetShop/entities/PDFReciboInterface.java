@@ -2,6 +2,6 @@ package ProjetoPetShop.entities;
 
 import java.io.IOException;
 
-public interface PDFReciboManager {
+public interface PDFReciboInterface {
     void gerarPDF(String conteudoRecibo, String nomeArquivo) throws IOException;
 }
