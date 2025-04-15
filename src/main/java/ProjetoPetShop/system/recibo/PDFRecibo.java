@@ -1,4 +1,4 @@
-package ProjetoPetShop.entities;
+package ProjetoPetShop.system.recibo;
 
 
 import org.apache.pdfbox.pdmodel.PDDocument;

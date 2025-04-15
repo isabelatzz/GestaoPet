@@ -1,9 +1,11 @@
-package ProjetoPetShop.entities;
+package ProjetoPetShop.system.servico;
 
+import ProjetoPetShop.entities.Servico;
 import ProjetoPetShop.exception.AnimalNaoExiste;
 import ProjetoPetShop.exception.ServicoJaCadastradoException;
 import ProjetoPetShop.exception.ServicoNaoCadastradoException;
 import ProjetoPetShop.exception.TutorNaoEncontradoException;
+import ProjetoPetShop.system.recibo.PDFRecibo;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;

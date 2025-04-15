@@ -1,4 +1,6 @@
-package ProjetoPetShop.entities;
+package ProjetoPetShop.system.servico;
+
+import ProjetoPetShop.entities.Servico;
 
 import java.util.List;
 

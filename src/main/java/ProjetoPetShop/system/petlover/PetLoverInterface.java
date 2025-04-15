@@ -1,4 +1,7 @@
-package ProjetoPetShop.entities;
+package ProjetoPetShop.system.petlover;
+
+import ProjetoPetShop.entities.Animal;
+import ProjetoPetShop.entities.Tutor;
 
 import java.util.List;
 

@@ -1,8 +1,7 @@
 package ProjetoPetShop.testClasses;
 
 import ProjetoPetShop.entities.*;
-
-import java.io.File;
+import ProjetoPetShop.system.servico.ServicoPetLoverMap;
 
 public class TesteGeracaoPDF {
     public static void main(String [] args) {
