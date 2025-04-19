@@ -26,4 +26,4 @@ Este repositório representa a fase inicial do projeto e ainda está em desenvol
 - **Java Swing (GUI)**
 - **Padrões de Projeto** (Interface, MVC - a definir)
 - **Apache PDFBox 2.0.27**
-- JUnit 5
+- **JUnit 5**
