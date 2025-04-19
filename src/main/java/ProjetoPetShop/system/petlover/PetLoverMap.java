@@ -10,6 +10,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Implementação concreta do gerenciador de pets e tutores do sistema PetShop.
+ * Gerencia o cadastro e relacionamento entre animais e seus tutores.
+ */
 public class PetLoverMap implements PetLoverInterface {
 
     private Map<Integer, Animal> animais;
@@ -41,7 +45,6 @@ public class PetLoverMap implements PetLoverInterface {
         }
         tutor.getAnimais().add(animal);
 
-        // Incrementa o ID para o próximo animal
         proximoIdAnimal++;
     }
 
@@ -102,7 +105,6 @@ public class PetLoverMap implements PetLoverInterface {
     public List<Tutor> listarTodosTutores() {
         return new ArrayList<>(tutores.values());
     }
-
 
 
     }

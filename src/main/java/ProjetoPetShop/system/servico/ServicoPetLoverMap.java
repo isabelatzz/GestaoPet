@@ -9,10 +9,18 @@ import ProjetoPetShop.system.recibo.PDFRecibo;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+/**
+ * Implementação concreta do gerenciador de serviços do PetShop.
+ * Responsável por cadastrar, armazenar e gerenciar todos os serviços oferecidos.
+ *
+ * Utiliza um Map interno para armazenamento eficiente dos serviços por ID.
+ */
 public class ServicoPetLoverMap implements ServicoInterface {
     private Map<Integer, Servico> servicos;
     private int proximoIdServico;
@@ -30,32 +38,24 @@ public class ServicoPetLoverMap implements ServicoInterface {
 
     @Override
     public void cadastrarServico(Servico servico) {
-        // Validações iniciais
         if (servico == null) {
             throw new IllegalArgumentException("Serviço não pode ser nulo");
         }
 
-        // Verifica se o animal existe
         if (servico.getAnimal() == null) {
             throw new AnimalNaoExiste("Animal associado ao serviço não foi informado");
         }
 
-        // Verifica se o tutor existe
         if (servico.getAnimal().getTutor() == null) {
             throw new TutorNaoEncontradoException("Tutor do animal não foi informado");
         }
-
-        // Atribui ID automático se não tiver
         if (servico.getId() == 0) {
             servico.setId(proximoIdServico++);
         }
-
-        // Verifica se já existe serviço com este ID
         if (servicos.containsKey(servico.getId())) {
             throw new ServicoJaCadastradoException("Já existe um serviço cadastrado com o ID: " + servico.getId());
         }
 
-        // Adiciona o serviço ao mapa
         servicos.put(servico.getId(), servico);
     }
 
@@ -95,7 +95,13 @@ public class ServicoPetLoverMap implements ServicoInterface {
 
     @Override
     public List<Servico> listarServicosPendentes() {
-        return List.of();
+        return servicos.values().stream()
+                .filter(servico -> !servico.isPago())  // Filtra apenas não pagos
+                .collect(Collectors.toList());
+    }
+
+    public List<Servico> listarTodosServicos() {
+        return new ArrayList<>(servicos.values());
     }
 
 }

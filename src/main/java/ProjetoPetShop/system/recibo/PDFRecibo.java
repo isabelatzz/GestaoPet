@@ -11,41 +11,35 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class PDFRecibo implements PDFReciboInterface {
+    public void gerarPDF(String conteudo, String nomeArquivo) throws IOException {
 
-    @Override
-    public void gerarPDF(String conteudoRecibo, String nomeArquivo) throws IOException {
+        Path outpudir = Paths.get("recibos");
+        outpudir.toFile().mkdirs();
 
-        Path outputDir = Paths.get("recibos");
-        outputDir.toFile().mkdirs();
-
-        try (PDDocument doc = new PDDocument()) {
+        try (PDDocument document = new PDDocument()) {
             PDPage page = new PDPage();
-            doc.addPage(page);
+            document.addPage(page);
 
-            try (PDPageContentStream content = new PDPageContentStream(doc, page)) {
-                // Configuração básica
-                content.setFont(PDType1Font.HELVETICA, 12);
-                float y = 700; // Posição Y inicial
+            try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
+                // Configuração da fonte e tamanho
+                contentStream.setFont(PDType1Font.COURIER, 10);
+                contentStream.beginText();
 
-                // Processa cada linha corretamente
-                String[] linhas = conteudoRecibo.split("\\r?\\n");
+                // Posição inicial (PDFBox usa coordenadas de baixo para cima)
+                contentStream.newLineAtOffset(50, 700);
 
+                // Dividir o conteúdo por linhas e adicionar ao PDF
+                String[] linhas = conteudo.split("\n");
                 for (String linha : linhas) {
-                    // Remove caracteres não suportados
-                    String linhaLimpa = linha.replaceAll("[^\\x00-\\x7F]", "");
-
-                    if (!linhaLimpa.isEmpty()) {
-                        content.beginText();
-                        content.newLineAtOffset(50, y);
-                        content.showText(linhaLimpa);
-                        content.endText(); // Fecha cada bloco de texto
-                        y -= 15; // Espaçamento entre linhas
-                    }
+                    contentStream.showText(linha);
+                    contentStream.newLineAtOffset(0, -15); // Move para a próxima linha
                 }
+
+                contentStream.endText();
             }
 
             // Salva o documento
-            doc.save("recibos/" + nomeArquivo + ".pdf");
+            document.save("recibos/" + nomeArquivo + ".pdf");
         }
     }
 }

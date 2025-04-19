@@ -46,7 +46,7 @@ public abstract class Servico {
                         "VALOR TOTAL: R$ %.2f\n" +
                         "Status: %s\n" +
                         "----------------------------------\n" +
-                        "Assinatura do Veterinário: ________________\n",
+                        "Assinatura do Veterinário: ________________\n\n",
                 dataHora.format(formatter),
                 animal.getNome(),
                 animal.getEspecie(),
@@ -64,6 +64,10 @@ public abstract class Servico {
 
     protected double calcularAcrescimo() {
         return getValorBase() * (getPercentualAcrescimoTamanho() / 100);
+    }
+
+    public String getDetalhes() {
+        return getDetalhesServico();
     }
 
     protected abstract String getDetalhesServico();
