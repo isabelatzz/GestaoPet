@@ -11,16 +11,14 @@ Este repositório representa a fase inicial do projeto e ainda está em desenvol
 ---
 
 ## 🚀 Últimas Atualizações  
-### 📅 17/04/2025  
-1. **Adição dos Testes Unitários - EM ANDAMENTO**  
-   - JUnit 5
-   - Estudos de testes a partir de >> https://junit.org/junit5/docs/current/user-guide/ <<
-  
+### 📅 19/04/2025  
+1. **Adição dos Testes Unitários ✅**
+   - Estudos de testes a partir de >> https://junit.org/junit5/docs/current/user-guide/ <<  
+3. **Documentação ✅**
 
 ## 📌 Próximos passos  
   - Implementar interface gráfica com Swing
   - Integrar com persistência de dados em arquivos
-  - Completar a implementação de testes unitários 
    
 ## 🛠️ Tecnologias Utilizadas
 
@@ -28,3 +26,4 @@ Este repositório representa a fase inicial do projeto e ainda está em desenvol
 - **Java Swing (GUI)**
 - **Padrões de Projeto** (Interface, MVC - a definir)
 - **Apache PDFBox 2.0.27**
+- **JUnit 5**
