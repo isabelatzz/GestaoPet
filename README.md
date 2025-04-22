@@ -19,8 +19,8 @@ Este repositório representa a fase inicial do projeto e ainda está em desenvol
 5. **Persistência de Dados em Arquivos✅**
 
 ## 📌 Próximos passos  
-  - Implementar interface gráfica com Swing
-  - Integrar com persistência de dados em arquivos
+  - Correções e melhorias da interface
+  - Melhorar documentação
    
 ## 🛠️ Tecnologias Utilizadas
 
