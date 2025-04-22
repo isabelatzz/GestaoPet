@@ -30,9 +30,20 @@ public class PetLoverMap implements PetLoverInterface {
         this.gravadorAnimais = new GravadorDadosPets("data/animais.dat");
         this.gravadorTutores = new GravadorDadosTutores("data/tutores.dat");
 
-        this.animais = new HashMap<>();
-        this.tutores = new HashMap<>();
-        this.proximoIdAnimal = 1;
+        this.tutores = carregarTutores();
+        this.animais = carregarAnimais();
+
+        this.proximoIdAnimal = animais.keySet().stream()
+                .mapToInt(id -> id)
+                .max()
+                .orElse(0) + 1;
+
+        Thread shutdownThread = new Thread(() -> {
+            System.out.println("[SHUTDOWN HOOK] Salvando dados antes de fechar...");
+            salvarDados();
+        });
+        Runtime.getRuntime().addShutdownHook(shutdownThread);
+
     }
 
     private Map<String, Tutor> carregarTutores() {

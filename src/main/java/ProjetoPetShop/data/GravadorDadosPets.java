@@ -14,18 +14,18 @@ public class GravadorDadosPets {
         criarArquivoSeNaoExistir();
     }
 
-    // 2. Cria o arquivo vazio se não existir
     private void criarArquivoSeNaoExistir() {
         File file = new File(arquivoAnimais);
         if (!file.exists()) {
             try {
-                file.createNewFile();
-                salvarDadosAnimais(new HashMap<>()); // Inicializa com Map vazio
+                file.getParentFile().mkdirs(); // garante que o diretório "data/" existe
+                file.createNewFile(); // só cria, não salva nada ainda
             } catch (IOException e) {
                 System.err.println("Erro ao criar arquivo: " + e.getMessage());
             }
         }
     }
+
 
     // 3. Salva dados com tratamento de erro mais claro
     public void salvarDadosAnimais(Map<String, Animal> animais) throws IOException {
