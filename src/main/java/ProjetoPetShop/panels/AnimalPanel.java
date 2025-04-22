@@ -42,9 +42,19 @@ public class AnimalPanel extends JPanel {
         add(formPanel, BorderLayout.NORTH);
 
         // Tabela de animais
-        tableModel = new DefaultTableModel(
-                new String[]{"ID", "Nome", "Espécie", "Raça", "Idade", "Tutor"}, 0);
+        this.tableModel = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return false; //nenhum é editavel
+            }
 
+        };
+        tableModel.addColumn("ID");
+        tableModel.addColumn("Nome");
+        tableModel.addColumn("Espécie");
+        tableModel.addColumn("Raça");
+        tableModel.addColumn("Idade");
+        tableModel.addColumn("Tutor");
         this.table = new JTable(tableModel);
         this.table.setFillsViewportHeight(true);
         this.table.setRowHeight(25);

@@ -11,7 +11,7 @@ public abstract class Servico {
     private double valorBase;
     private LocalDateTime dataHora;
     private String veterinario;
-    private boolean pago;
+    private boolean pago = false;
     private Tamanho tamanho;
     private double percentualAcrescimoTamanho; //Veterinário que decide
 
@@ -19,6 +19,7 @@ public abstract class Servico {
                    Animal animal,
                    double valorBase,
                    String veterinario,
+                   boolean pago,
                    Tamanho tamanho,
                    double percentualAcrescimoTamanho) {
         this.id = id;
@@ -26,7 +27,7 @@ public abstract class Servico {
         this.valorBase = valorBase;
         this.veterinario = veterinario;
         this.dataHora = LocalDateTime.now();
-        this.pago = false;
+        this.pago = pago;
         this.tamanho = tamanho;
         this.percentualAcrescimoTamanho = percentualAcrescimoTamanho;
     }

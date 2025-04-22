@@ -39,8 +39,18 @@ public class TutorPanel extends JPanel {
         add(formPanel, BorderLayout.NORTH);
 
         // Tabela de tutores
-        tableModel = new DefaultTableModel(
-                new String[]{"Nome", "CPF", "Telefone", "E-mail", "Endereço"}, 0);
+        this.tableModel = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return false; //nenhum é editavel
+            }
+
+        };
+        tableModel.addColumn("Nome");
+        tableModel.addColumn("CPF");
+        tableModel.addColumn("Telefone");
+        tableModel.addColumn("Telefone");
+        tableModel.addColumn("Endereço");
 
         JTable table = new JTable(tableModel);
         table.setFillsViewportHeight(true);

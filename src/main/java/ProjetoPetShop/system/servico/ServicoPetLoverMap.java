@@ -1,6 +1,7 @@
 package ProjetoPetShop.system.servico;
 
 import ProjetoPetShop.data.GravadorDadosServico;
+import ProjetoPetShop.entities.Animal;
 import ProjetoPetShop.entities.Servico;
 import ProjetoPetShop.exception.AnimalNaoExiste;
 import ProjetoPetShop.exception.ServicoJaCadastradoException;
@@ -29,21 +30,39 @@ public class ServicoPetLoverMap implements ServicoInterface {
 
     public ServicoPetLoverMap() {
         this.gravadorServicos = new GravadorDadosServico("data/servicos.dat");
-        this.servicos = new HashMap<>();
-        this.proximoIdServico = 1;
+
+        this.servicos = carregarServicos();
+
+        this.proximoIdServico = servicos.keySet().stream()
+                .mapToInt(id -> id)
+                .max()
+                .orElse(0) + 1;
+
+        Thread shutdownThread = new Thread(() -> {
+            System.out.println("[SHUTDOWN HOOK] Salvando dados antes de fechar...");
+            salvarDados();
+        });
+        Runtime.getRuntime().addShutdownHook(shutdownThread);
+
     }
 
     private Map<Integer, Servico> carregarServicos() {
         try {
-            return gravadorServicos.recuperaDadosServicos();
+            Map<Integer, Servico> serviçoMap = gravadorServicos.recuperaDadosServicos();
+            Map<Integer, Servico> servicoID = new HashMap<>();
+            serviçoMap.forEach((key, servico) -> servicoID.put(servico.getId(), servico));        ;
+            return servicoID;
         } catch (IOException e) {
             System.out.println("Arquivo de serviços não encontrado. Iniciando com dados vazios.");
             return new HashMap<>();
         }
     }
 
-    private void salvarDados() {
+    public void salvarDados() {
         try {
+            Map<String, Servico> servicoMap = new HashMap<>();
+            servicos.forEach((id, animal) -> servicoMap.put(String.valueOf(id), animal));
+
             gravadorServicos.salvarDadosServicos(servicos);
         } catch (IOException e) {
             System.err.println("Erro ao salvar serviços: " + e.getMessage());

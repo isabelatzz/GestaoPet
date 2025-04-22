@@ -13,10 +13,11 @@ public class Consulta extends Servico{
                      double valorVacina,
                      double valorMedicamento,
                      String descricao,
+                     boolean pago,
                      Tamanho tamanho,
                      double acrescimoTamanho) {
 
-        super(id, animal, valorBase, veterinario, tamanho, acrescimoTamanho);
+        super(id, animal, valorBase, veterinario, pago,tamanho, acrescimoTamanho);
         this.valorVacina = valorVacina;
         this.valorMedicamento = valorMedicamento;
         this.descricao = descricao;

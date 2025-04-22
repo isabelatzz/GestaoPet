@@ -34,6 +34,7 @@ public class TesteGeracaoPDF {
                 50,
                 60,
                 "Animal dócil",
+                true,
                 Tamanho.PEQUENO,
                 10.0
         );

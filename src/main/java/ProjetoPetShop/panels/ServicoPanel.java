@@ -2,6 +2,7 @@ package ProjetoPetShop.panels;
 
 import ProjetoPetShop.controller.ServicoController;
 import ProjetoPetShop.entities.Tamanho;
+import ProjetoPetShop.system.servico.ServicoPetLoverMap;
 import ProjetoPetShop.theme.Theme;
 
 import javax.swing.*;
@@ -26,6 +27,7 @@ public class ServicoPanel extends JPanel {
     private final JTextField vetField;
     private final JCheckBox acessoriosCheck;
     private final JTextField valorAcessoriosField;
+    private final JCheckBox pagoCheckBox;
     private final JTextArea descricaoArea;
     private final JButton gerarReciboBtn;
 
@@ -43,6 +45,7 @@ public class ServicoPanel extends JPanel {
         this.vetField = new JTextField(15);
         this.acessoriosCheck = new JCheckBox("Adicionar acessórios?");
         this.valorAcessoriosField = new JTextField("0.0", 15);
+        this.pagoCheckBox = new JCheckBox("Pago?");
         this.descricaoArea = new JTextArea(3, 20);
         this.gerarReciboBtn = new JButton("Gerar Recibo PDF");
 
@@ -105,9 +108,13 @@ public class ServicoPanel extends JPanel {
 
         // Descrição
         gbc.gridx = 0; gbc.gridy = 6;
+        formPanel.add(pagoCheckBox,gbc);
+
+        gbc.gridx = 0; gbc.gridy = 7;
         formPanel.add(new JLabel("Descrição:"), gbc);
         gbc.gridx = 1;
         formPanel.add(new JScrollPane(descricaoArea), gbc);
+
 
         // Botões
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
@@ -115,10 +122,13 @@ public class ServicoPanel extends JPanel {
         buttonPanel.add(gerarReciboBtn);
 
         JButton agendarBtn = new JButton("Agendar Serviço");
-        agendarBtn.addActionListener(e -> agendarServico());
+        agendarBtn.addActionListener(e -> {
+            agendarServico();
+            this.controller.salvarDados();
+        });
         buttonPanel.add(agendarBtn);
 
-        gbc.gridx = 1; gbc.gridy = 7;
+        gbc.gridx = 1; gbc.gridy = 8;
         gbc.anchor = GridBagConstraints.EAST;
         setBackground(Theme.BACKGROUND_COLOR);
         formPanel.add(buttonPanel, gbc);
@@ -156,9 +166,9 @@ public class ServicoPanel extends JPanel {
                     acessoriosCheck.isSelected(),
                     Double.parseDouble(valorAcessoriosField.getText()),
                     descricaoArea.getText(),
+                    pagoCheckBox.isSelected(),
                     (Tamanho) tamanhoCombo.getSelectedItem()
             );
-
             JOptionPane.showMessageDialog(this, "Serviço agendado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             limparCampos();
             atualizarTabela();
@@ -218,6 +228,7 @@ public class ServicoPanel extends JPanel {
         descricaoArea.setText("");
         acessoriosCheck.setSelected(false);
         tipoServicoCombo.setSelectedIndex(0);
+        pagoCheckBox.setSelected(false);
         tamanhoCombo.setSelectedIndex(0);
         valorAcessoriosField.setEnabled(false);
     }

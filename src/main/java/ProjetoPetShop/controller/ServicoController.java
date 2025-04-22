@@ -19,7 +19,7 @@ public class ServicoController {
     public void agendarServico(int idAnimal, String tipoServico, LocalDateTime data,
                                double valorBase, String veterinario,
                                boolean adicionarAcessorios, double valorAcessorios,
-                               String descricao, Tamanho tamanho) {
+                               String descricao,boolean pago,Tamanho tamanho) {
 
         Animal animal = petLoverMap.buscarAnimalPorID(idAnimal);
         if (valorBase <= 0) {
@@ -35,6 +35,7 @@ public class ServicoController {
                     adicionarAcessorios,
                     valorAcessorios,
                     descricao,
+                    pago,
                     tamanho,
                     calcularAcrescimoTamanho(tamanho, valorBase)
             );
@@ -45,6 +46,7 @@ public class ServicoController {
                     valorBase,
                     veterinario,
                     descricao,
+                    pago,
                     tamanho,
                     calcularAcrescimoTamanho(tamanho, valorBase)
             );
@@ -69,6 +71,10 @@ public class ServicoController {
 
     public void gerarReciboPDF(int idServico) {
         servicoMap.gerarReciboPDF(idServico); // aqui você repassa a chamada para o map
+    }
+
+    public void salvarDados(){
+        this.servicoMap.salvarDados();
     }
 
 }

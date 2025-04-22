@@ -13,9 +13,9 @@ public class Tosa extends Servico implements Serializable {
                 String veterinario,
                 boolean adicionarAcc,
                 double valoraAcc,
-                String descricao, Tamanho tamanho,
+                String descricao, boolean pago,Tamanho tamanho,
                 double acrescimoTamanho){
-        super(id, animal, valorBase, veterinario, tamanho, acrescimoTamanho);
+        super(id, animal, valorBase, veterinario, pago ,tamanho, acrescimoTamanho);
         this.adicionarAcc = adicionarAcc;
         this.valoraAcc = valoraAcc;
         this.descricao = descricao;

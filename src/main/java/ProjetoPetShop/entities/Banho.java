@@ -12,8 +12,9 @@ public class Banho extends Servico implements Serializable {
                  double valorBase,
                  String veterinario,
                  String descricao,
+                 boolean pago,
                  Tamanho tamanho, double acrescimoTamanho) {
-        super(id, animal, valorBase, veterinario, tamanho, acrescimoTamanho);
+        super(id, animal, valorBase, veterinario, pago,tamanho, acrescimoTamanho);
         this.descricao = descricao;
     }
 

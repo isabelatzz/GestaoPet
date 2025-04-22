@@ -21,7 +21,8 @@ public class TesteClasseBanho {
                 70.0,                   // Valor base
                 "Dr. Pet",              // Veterinário
                 "Banho com shampoo hipoalergênico", // Descrição
-                Tamanho.PEQUENO,        // Tamanho
+                true, //pago
+                Tamanho.PEQUENO,// Tamanho
                 5.0                     // % de acréscimo
         );
 
