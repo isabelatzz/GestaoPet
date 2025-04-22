@@ -165,5 +165,5 @@ public class PetLoverMapTest {
         assertTrue(todosAnimais.contains(animal2));
     }
 
-    }
+}
 

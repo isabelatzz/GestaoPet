@@ -1,11 +1,11 @@
 package ProjetoPetShop.entities;
 
-import java.io.IOException;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public abstract class Servico {
+public abstract class Servico implements Serializable {
     private int id;
     private Animal animal;
     private double valorBase;

@@ -8,7 +8,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
-    private final ImageIcon miniIcon = new ImageIcon("src/main/resources/resources/miniIcon.png");
 
     public MainFrame(AnimalController animalController,
                      TutorController tutorController,
@@ -19,6 +18,7 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 700);
         setMinimumSize(new Dimension(500,600));
+        ImageIcon miniIcon = new ImageIcon("src/main/resources/mini_icon.png");
         setIconImage(miniIcon.getImage());
         setLocationRelativeTo(null);
 

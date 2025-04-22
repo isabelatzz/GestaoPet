@@ -235,15 +235,22 @@ public class ServicoPanel extends JPanel {
 
     private void atualizarTabela() {
         tableModel.setRowCount(0);
-        controller.listarServicos().forEach(servico -> {
-            tableModel.addRow(new Object[]{
-                    servico.getId(),
-                    servico.getTipo(),
-                    servico.getAnimal().getNome(),
-                    "R$ " + String.format("%.2f", servico.getValorTotal()),
-                    servico.getDataHora().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")),
-                    servico.isPago() ? "Pago" : "Pendente"
+        try {
+            controller.listarServicos().forEach(servico -> {
+                tableModel.addRow(new Object[]{
+                        servico.getId(),
+                        servico.getTipo(),
+                        servico.getAnimal().getNome(),
+                        "R$ " + String.format("%.2f", servico.getValorTotal()),
+                        servico.getDataHora().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")),
+                        servico.isPago() ? "Pago" : "Pendente"
+                });
             });
-        });
+
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
+
     }
 }

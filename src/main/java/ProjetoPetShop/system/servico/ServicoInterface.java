@@ -1,6 +1,8 @@
 package ProjetoPetShop.system.servico;
 
 import ProjetoPetShop.entities.Servico;
+
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -70,7 +72,7 @@ public interface ServicoInterface {
      *   <li>Manter a ordem de inserção</li>
      * </ul>
      */
-    List<Servico> listarTodosServicos();
+    Collection<Servico> listarTodosServicos();
 
     private Servico buscarServicoPorId(int id) {
         return null;

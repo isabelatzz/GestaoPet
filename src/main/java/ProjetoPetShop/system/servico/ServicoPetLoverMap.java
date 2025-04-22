@@ -11,10 +11,7 @@ import ProjetoPetShop.system.recibo.PDFRecibo;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -133,8 +130,8 @@ public class ServicoPetLoverMap implements ServicoInterface {
                 .collect(Collectors.toList());
     }
 
-    public List<Servico> listarTodosServicos() {
-        return new ArrayList<>(servicos.values());
+    public Collection<Servico> listarTodosServicos() {
+        return this.servicos.values();
     }
 
     private Servico buscarServicoPorId(int id) {

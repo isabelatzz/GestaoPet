@@ -1,6 +1,8 @@
 package ProjetoPetShop.entities;
 
-public class Consulta extends Servico{
+import java.io.Serializable;
+
+public class Consulta extends Servico implements Serializable {
     private double valorVacina;
     private double valorMedicamento;
     private String descricao;
