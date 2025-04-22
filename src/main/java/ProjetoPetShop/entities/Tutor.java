@@ -82,6 +82,14 @@ public class Tutor implements Serializable {
         return Objects.hash(nome, cpf, telefone, endereço, email, animais);
     }
 
+    public String getEndereço() {
+        return endereço;
+    }
+
+    public void setEndereço(String endereço) {
+        this.endereço = endereço;
+    }
+
     @Override
     public String toString() {
         return "Tutor{" +

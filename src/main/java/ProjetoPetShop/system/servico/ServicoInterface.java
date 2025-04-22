@@ -71,4 +71,11 @@ public interface ServicoInterface {
      * </ul>
      */
     List<Servico> listarTodosServicos();
+
+    private Servico buscarServicoPorId(int id) {
+        return null;
+    }
+
+    private void validarServico(Servico servico) {
+    }
 }

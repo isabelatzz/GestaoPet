@@ -1,12 +1,20 @@
 package ProjetoPetShop.entities;
 
-public class Tosa extends Servico{
+import java.io.Serializable;
+
+public class Tosa extends Servico implements Serializable {
+    private static final long serialVersionUID = 1L;
     private boolean adicionarAcc;
     private double valoraAcc;
     private String descricao;
 
-    public Tosa(int id, Animal animal, double valorBase, String veterinario,  boolean adicionarAcc, double valoraAcc,
-                String descricao, Tamanho tamanho, double acrescimoTamanho){
+    public Tosa(int id, Animal animal,
+                double valorBase,
+                String veterinario,
+                boolean adicionarAcc,
+                double valoraAcc,
+                String descricao, Tamanho tamanho,
+                double acrescimoTamanho){
         super(id, animal, valorBase, veterinario, tamanho, acrescimoTamanho);
         this.adicionarAcc = adicionarAcc;
         this.valoraAcc = valoraAcc;

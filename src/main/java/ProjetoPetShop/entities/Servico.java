@@ -15,7 +15,11 @@ public abstract class Servico {
     private Tamanho tamanho;
     private double percentualAcrescimoTamanho; //Veterinário que decide
 
-    public Servico(int id, Animal animal, double valorBase, String veterinario, Tamanho tamanho,
+    public Servico(int id,
+                   Animal animal,
+                   double valorBase,
+                   String veterinario,
+                   Tamanho tamanho,
                    double percentualAcrescimoTamanho) {
         this.id = id;
         this.animal = animal;
@@ -25,6 +29,15 @@ public abstract class Servico {
         this.pago = false;
         this.tamanho = tamanho;
         this.percentualAcrescimoTamanho = percentualAcrescimoTamanho;
+    }
+
+    public String getTipo() {
+        String className = this.getClass().getSimpleName();
+        return className.replace("Servico", "");
+    }
+
+    public double getValorTotal() {
+        return calcularValorTotal(); // Chama o método existente
     }
 
     public String gerarRecibo(){
@@ -65,6 +78,7 @@ public abstract class Servico {
     protected double calcularAcrescimo() {
         return getValorBase() * (getPercentualAcrescimoTamanho() / 100);
     }
+
 
     public String getDetalhes() {
         return getDetalhesServico();
@@ -134,8 +148,6 @@ public abstract class Servico {
     public void setTamanho(Tamanho tamanho) {
         this.tamanho = tamanho;
     }
-
-
 
 
     @Override

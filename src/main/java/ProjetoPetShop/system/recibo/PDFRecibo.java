@@ -1,45 +1,81 @@
 package ProjetoPetShop.system.recibo;
 
-
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
+import java.awt.*;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class PDFRecibo implements PDFReciboInterface {
-    public void gerarPDF(String conteudo, String nomeArquivo) throws IOException {
 
-        Path outpudir = Paths.get("recibos");
-        outpudir.toFile().mkdirs();
+    @Override
+    public void gerarPDF(String conteudo, String nomeArquivo) throws IOException {
+        // Define pasta de saída dentro do diretório de execução
+        Path outputDir = Paths.get(System.getProperty("user.dir"), "recibos");
+        if (Files.notExists(outputDir)) {
+            Files.createDirectories(outputDir);
+        }
+
+        // Caminho final do arquivo
+        Path pdfPath = outputDir.resolve(nomeArquivo + ".pdf");
+        System.out.println("Salvando recibo em: " + pdfPath.toAbsolutePath());
 
         try (PDDocument document = new PDDocument()) {
+            // Cria página e adiciona ao documento
             PDPage page = new PDPage();
             document.addPage(page);
 
-            try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
-                // Configuração da fonte e tamanho
-                contentStream.setFont(PDType1Font.COURIER, 10);
-                contentStream.beginText();
+            PDType0Font unicodeFont;
 
-                // Posição inicial (PDFBox usa coordenadas de baixo para cima)
-                contentStream.newLineAtOffset(50, 700);
-
-                // Dividir o conteúdo por linhas e adicionar ao PDF
-                String[] linhas = conteudo.split("\n");
-                for (String linha : linhas) {
-                    contentStream.showText(linha);
-                    contentStream.newLineAtOffset(0, -15); // Move para a próxima linha
+            // Carrega a fonte Unicode interna do PDFBox (LiberationSans)
+            try (InputStream fontStream = PDFRecibo.class.getResourceAsStream(
+                    "/org/apache/pdfbox/resources/ttf/LiberationSans-Regular.ttf")) {
+                if (fontStream == null) {
+                    throw new IOException("Fonte LiberationSans não encontrada no classpath");
                 }
-
-                contentStream.endText();
+                unicodeFont = PDType0Font.load(document, fontStream, true);
             }
 
-            // Salva o documento
-            document.save("recibos/" + nomeArquivo + ".pdf");
+
+            // Abre o stream de conteúdo com try-with-resources
+            try (PDPageContentStream cs = new PDPageContentStream(document, page)) {
+                cs.setFont(unicodeFont, 12);
+                cs.beginText();
+                cs.newLineAtOffset(50, 700);
+
+                try {
+                    // Escreve cada linha; se falhar aqui, endText() ainda será chamado
+                    for (String linha : conteudo.split("\n")) {
+                        if (!linha.trim().isEmpty()) {
+                            cs.showText(linha);
+                            cs.newLineAtOffset(0, -15);
+                        }
+                    }
+                } finally {
+                    cs.endText();
+                }
+            }
+
+            // Salva e fecha o documento
+            document.save(pdfPath.toString());
+        }
+        // 3) Abre o PDF no aplicativo padrão (pode ser o navegador)
+        Path abs = pdfPath.toAbsolutePath();
+        if (!Files.exists(abs)) {
+            throw new IOException("PDF não encontrado em: " + abs);
+        }
+        if (Desktop.isDesktopSupported()) {
+            Desktop.getDesktop().open(abs.toFile());
+        } else {
+            System.err.println("API Desktop não suportada; abra manualmente: " + abs);
         }
     }
-}
+    }
+

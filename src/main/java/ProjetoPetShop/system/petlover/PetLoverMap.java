@@ -1,10 +1,13 @@
 package ProjetoPetShop.system.petlover;
 
+import ProjetoPetShop.data.GravadorDadosPets;
+import ProjetoPetShop.data.GravadorDadosTutores;
 import ProjetoPetShop.entities.Animal;
 import ProjetoPetShop.entities.Tutor;
 import ProjetoPetShop.exception.TutorCadastrado;
 import ProjetoPetShop.exception.AnimalNaoExiste;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,12 +22,51 @@ public class PetLoverMap implements PetLoverInterface {
     private Map<Integer, Animal> animais;
     private Map<String, Tutor> tutores;
     private int proximoIdAnimal;
+    private final GravadorDadosPets gravadorAnimais;
+    private final GravadorDadosTutores gravadorTutores;
 
 
     public PetLoverMap(){
+        this.gravadorAnimais = new GravadorDadosPets("data/animais.dat");
+        this.gravadorTutores = new GravadorDadosTutores("data/tutores.dat");
+
         this.animais = new HashMap<>();
         this.tutores = new HashMap<>();
         this.proximoIdAnimal = 1;
+    }
+
+    private Map<String, Tutor> carregarTutores() {
+        try {
+            return gravadorTutores.recuperaDadosTutores();
+        } catch (IOException e) {
+            System.out.println("Arquivo de tutores não encontrado. Iniciando com dados vazios.");
+            return new HashMap<>();
+        }
+    }
+
+    private Map<Integer, Animal> carregarAnimais() {
+        try {
+            Map<String, Animal> animaisMap = gravadorAnimais.recuperaDadosAnimais();
+            Map<Integer, Animal> animaisPorId = new HashMap<>();
+            animaisMap.forEach((key, animal) -> animaisPorId.put(animal.getCodigo(), animal));
+            return animaisPorId;
+        } catch (IOException e) {
+            System.out.println("Arquivo de animais não encontrado. Iniciando com dados vazios.");
+            return new HashMap<>();
+        }
+    }
+
+    public void salvarDados() {
+        try {
+            // Converte Map<Integer, Animal> para Map<String, Animal>
+            Map<String, Animal> animaisParaSalvar = new HashMap<>();
+            animais.forEach((id, animal) -> animaisParaSalvar.put(String.valueOf(id), animal));
+
+            gravadorAnimais.salvarDadosAnimais(animaisParaSalvar);
+            gravadorTutores.salvarDadosTutores(tutores);
+        } catch (IOException e) {
+            System.err.println("Erro ao salvar dados: " + e.getMessage());
+        }
     }
 
     /** Métodos de Animais */
@@ -46,6 +88,7 @@ public class PetLoverMap implements PetLoverInterface {
         tutor.getAnimais().add(animal);
 
         proximoIdAnimal++;
+        salvarDados();
     }
 
 
@@ -69,6 +112,7 @@ public class PetLoverMap implements PetLoverInterface {
         if (animal != null) {
             Tutor tutor = animal.getTutor();
             tutor.getAnimais().remove(animal);
+            salvarDados();
         }
     }
 
@@ -84,6 +128,7 @@ public class PetLoverMap implements PetLoverInterface {
             throw new AnimalNaoExiste("Animal não encontrado!");
         }
         animais.put(animal.getCodigo(), animal);
+        salvarDados();
     }
 
     /** Métodos de Tutores */
@@ -94,6 +139,7 @@ public class PetLoverMap implements PetLoverInterface {
             throw new TutorCadastrado("Tutor já cadastrado!");
         }
         tutores.put(tutor.getCpf(), tutor);
+        salvarDados();
     }
 
     @Override
@@ -106,6 +152,41 @@ public class PetLoverMap implements PetLoverInterface {
         return new ArrayList<>(tutores.values());
     }
 
+    public boolean removerTutor(String cpf) {
+        if (cpf == null || cpf.trim().isEmpty()) {
+            throw new IllegalArgumentException("CPF não pode ser nulo ou vazio!");
+        }
 
+        Tutor tutorRemovido = tutores.remove(cpf);
+        if (tutorRemovido != null) {
+            // Verifica se há animais antes de tentar remover
+            if (tutorRemovido.getAnimais() != null) {
+                // Cria uma cópia da lista para evitar ConcurrentModificationException
+                List<Animal> animaisDoTutor = new ArrayList<>(tutorRemovido.getAnimais());
+                for (Animal animal : animaisDoTutor) {
+                    animais.remove(animal.getCodigo());
+                }
+            }
+            salvarDados();
+            return true;
+        }
+        return false;
     }
+
+    public boolean atualizarTutor(Tutor tutor) {
+        if (tutor == null) {
+            throw new IllegalArgumentException("Tutor não pode ser nulo!");
+        }
+
+        if (!tutores.containsKey(tutor.getCpf())) {
+            return false;
+        }
+
+        tutores.put(tutor.getCpf(), tutor);
+        salvarDados();
+        return true;
+    }
+
+
+}
 

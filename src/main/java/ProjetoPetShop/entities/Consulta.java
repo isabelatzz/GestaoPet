@@ -34,11 +34,8 @@ public class Consulta extends Servico{
         StringBuilder sb = new StringBuilder();
 
         try {
-            // Formatação segura usando String.format()
             sb.append(String.format("║ %-33s ║%n", "CONSULTA VETERINÁRIA"));
-            sb.append(String.format("║ %-33s ║%n", " "));  // Linha em branco para espaçamento
-
-            // Adiciona informações básicas formatadas
+            sb.append(String.format("║ %-33s ║%n", " "));
             sb.append(String.format("║ Tamanho: %-24s ║%n",
                     (getTamanho() != null ? getTamanho().toString() : "Não informado")));
 
@@ -56,7 +53,6 @@ public class Consulta extends Servico{
             }
 
         } catch (Exception e) {
-            // Fallback seguro em caso de erro de formatação
             System.err.println("Erro ao formatar detalhes da consulta: " + e.getMessage());
             return "║ Erro ao gerar detalhes do serviço ║";
         }

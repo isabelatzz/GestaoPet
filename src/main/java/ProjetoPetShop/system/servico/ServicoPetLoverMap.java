@@ -1,5 +1,6 @@
 package ProjetoPetShop.system.servico;
 
+import ProjetoPetShop.data.GravadorDadosServico;
 import ProjetoPetShop.entities.Servico;
 import ProjetoPetShop.exception.AnimalNaoExiste;
 import ProjetoPetShop.exception.ServicoJaCadastradoException;
@@ -24,10 +25,29 @@ import java.util.stream.Collectors;
 public class ServicoPetLoverMap implements ServicoInterface {
     private Map<Integer, Servico> servicos;
     private int proximoIdServico;
+    private final GravadorDadosServico gravadorServicos;
 
     public ServicoPetLoverMap() {
+        this.gravadorServicos = new GravadorDadosServico("data/servicos.dat");
         this.servicos = new HashMap<>();
         this.proximoIdServico = 1;
+    }
+
+    private Map<Integer, Servico> carregarServicos() {
+        try {
+            return gravadorServicos.recuperaDadosServicos();
+        } catch (IOException e) {
+            System.out.println("Arquivo de serviços não encontrado. Iniciando com dados vazios.");
+            return new HashMap<>();
+        }
+    }
+
+    private void salvarDados() {
+        try {
+            gravadorServicos.salvarDadosServicos(servicos);
+        } catch (IOException e) {
+            System.err.println("Erro ao salvar serviços: " + e.getMessage());
+        }
     }
 
     public void adicionarServico(Servico servico) {
@@ -38,33 +58,27 @@ public class ServicoPetLoverMap implements ServicoInterface {
 
     @Override
     public void cadastrarServico(Servico servico) {
-        if (servico == null) {
-            throw new IllegalArgumentException("Serviço não pode ser nulo");
-        }
+        validarServico(servico);
 
-        if (servico.getAnimal() == null) {
-            throw new AnimalNaoExiste("Animal associado ao serviço não foi informado");
-        }
-
-        if (servico.getAnimal().getTutor() == null) {
-            throw new TutorNaoEncontradoException("Tutor do animal não foi informado");
-        }
         if (servico.getId() == 0) {
             servico.setId(proximoIdServico++);
-        }
-        if (servicos.containsKey(servico.getId())) {
-            throw new ServicoJaCadastradoException("Já existe um serviço cadastrado com o ID: " + servico.getId());
+        } else if (servicos.containsKey(servico.getId())) {
+            throw new ServicoJaCadastradoException("ID já existe: " + servico.getId());
         }
 
         servicos.put(servico.getId(), servico);
+        salvarDados();
+    }
+
+    private void validarServico(Servico servico) { //Evitar duplicação de código
+        if (servico == null) throw new IllegalArgumentException("Serviço não pode ser nulo");
+        if (servico.getAnimal() == null) throw new AnimalNaoExiste("Animal não informado");
+        if (servico.getAnimal().getTutor() == null) throw new TutorNaoEncontradoException("Tutor não informado");
     }
 
     @Override
     public String gerarRecibo(int idServico) {
-        Servico servico = servicos.get(idServico);
-        if (servico == null) {
-            throw new ServicoNaoCadastradoException("Serviço não encontrado!");
-        }
+        Servico servico = buscarServicoPorId(idServico);
         return servico.gerarRecibo();
     }
 
@@ -102,6 +116,18 @@ public class ServicoPetLoverMap implements ServicoInterface {
 
     public List<Servico> listarTodosServicos() {
         return new ArrayList<>(servicos.values());
+    }
+
+    private Servico buscarServicoPorId(int id) {
+        Servico servico = servicos.get(id);
+        if (servico == null) throw new ServicoNaoCadastradoException("Serviço não encontrado: " + id);
+        return servico;
+    }
+
+    public void marcarComoPago(int idServico) {
+        Servico servico = buscarServicoPorId(idServico);
+        servico.setPago(true);
+        salvarDados();
     }
 
 }
