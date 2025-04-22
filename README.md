@@ -11,10 +11,12 @@ Este repositório representa a fase inicial do projeto e ainda está em desenvol
 ---
 
 ## 🚀 Últimas Atualizações  
-### 📅 19/04/2025  
+### 📅 22/04/2025  
 1. **Adição dos Testes Unitários ✅**
    - Estudos de testes a partir de >> https://junit.org/junit5/docs/current/user-guide/ <<  
 3. **Documentação ✅**
+4. **Interface Swing ✅**
+5. **Persistência de Dados em Arquivos✅**
 
 ## 📌 Próximos passos  
   - Implementar interface gráfica com Swing
