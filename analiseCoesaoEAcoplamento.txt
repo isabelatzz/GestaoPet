@@ -1,0 +1,40 @@
+Pontos positivos (alta coesão):
+
+A classe Tutor gerencia bem sua lista de animais, sendo responsável por:
+- Definir quais animais podem ser cadastrados nos serviços
+- Garantir que animais sempre tenham um tutor associado
+
+Outro acerto foi usar o CPF como chave do mapa, resolvendo de forma simples a necessidade de chaves únicas para cadastro de tutores.
+
+O módulo de interface gráfica está bem organizado, evitando aquela bagunça que costuma acontecer (o famoso "blob"). A classe Animal também está bem estruturada.
+
+Pontos de atenção (alto acoplamento):
+
+Bad smells:
+- Servico é uma classe muito grande (Large class)
+- Não usamos uma classe separada para representar o CPF do tutor (Primitive Obsession)
+- Campos temporarios nas classes filhas de serviços (Temporary field)
+- PDF Recibo é uma classe preguiçosa (Lazy class)
+
+Notamos algumas dependências fortes entre:
+- A herança usada na classe Serviço e suas subclasses
+
+Problemas identificados (baixa coesão):
+
+Alguns pontos que poderiam ser melhorados:
+- A responsabilidade de criar animais deveria ser toda do Tutor (como especialista na informação)
+- A classe Serviço (pai) está com muitas responsabilidades - alguns métodos poderiam ser movidos para outras classes
+
+Sugestões de melhoria:
+
+Uma melhoria seria remover o mapa de animais da classe PetLoverServicoMap, já que essa informação já é guardada pelos próprios tutores.
+
+Ideias para evolução do sistema:
+
+Pensando no futuro, algumas implementações interessantes seriam:
+- Adicionar mais tipos de serviços
+- Criar uma classe Funcionário (que poderia ser extendida para Veterinário, Caixa, Tosador)
+- Implementar sistema de pagamentos
+- Adicionar notificações para clientes (como por WhatsApp)
+- Transformar o sistema para atender franquias de petshop com administração completa
+- Entre outras funcionalidades que possam surgir

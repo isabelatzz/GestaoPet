@@ -7,6 +7,15 @@
 O **PetLover** é um sistema de gerenciamento para pet shops, feito em **Java para desktop**, utilizando **Java Swing** para a interface gráfica.  
 Seu objetivo é facilitar o controle de **animais**, **tutores**, **serviços veterinários** e **emissão de recibos**, otimizando a rotina do pet shop **PetLover**.
 Este repositório representa a fase inicial do projeto e ainda está em desenvolvimento.
+## 📌 Principais funcionalidades 
+1. Cadastrar, buscar, atualizar e remover tutores
+2. Cadastrar, buscar, atualizar e remover animais dos respectivos tutores 
+3. Listar serviços e serviços pendentes
+4. Gerar recibos em PDF 
+
+[//]: # (## 📌Diagrama UML) 
+
+[//]: # (![PetLoverUML]&#40;src/main/resources/diagrama.png "diagrama"&#41;)
 
 ---
 
