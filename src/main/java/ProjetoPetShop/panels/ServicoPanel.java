@@ -2,7 +2,6 @@ package ProjetoPetShop.panels;
 
 import ProjetoPetShop.controller.ServicoController;
 import ProjetoPetShop.entities.Tamanho;
-import ProjetoPetShop.system.servico.ServicoPetLoverMap;
 import ProjetoPetShop.theme.Theme;
 
 import javax.swing.*;

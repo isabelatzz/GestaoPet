@@ -1,7 +1,6 @@
 package ProjetoPetShop.system.servico;
 
 import ProjetoPetShop.data.GravadorDadosServico;
-import ProjetoPetShop.entities.Animal;
 import ProjetoPetShop.entities.Servico;
 import ProjetoPetShop.exception.AnimalNaoExiste;
 import ProjetoPetShop.exception.ServicoJaCadastradoException;

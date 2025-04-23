@@ -1,7 +1,6 @@
 package ProjetoPetShop.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -56,7 +55,7 @@ public class Tutor implements Serializable {
     }
 
     public List<Animal> getAnimais() {
-        return animais;
+        return this.animais;
     }
     public void setAnimais(List<Animal> animais) {
         this.animais = animais;

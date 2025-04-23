@@ -2,7 +2,9 @@ package ProjetoPetShop.system.petlover;
 
 import ProjetoPetShop.entities.Animal;
 import ProjetoPetShop.entities.Tutor;
+import ProjetoPetShop.exception.TutorNaoEncontradoException;
 
+import java.util.Collection;
 import java.util.List;
 /**
  * Interface principal do sistema PetShop que define as operações para gestão
@@ -50,7 +52,7 @@ public interface PetLoverInterface {
      * @throws IllegalArgumentException se o CPF for nulo ou inválido
      * @implNote A lista retornada deve ser ordenada por nome do animal
      */
-    List<Animal> listarAnimaisPorTutor (String cpf);
+    List<Animal> listarAnimaisPorTutor (String cpf) throws TutorNaoEncontradoException;
 
     /**
      * Remove um animal do sistema pelo seu ID.
@@ -72,7 +74,7 @@ public interface PetLoverInterface {
      *   <li>Manter a ordem de inserção</li>
      * </ul>
      */
-    List<Animal> listarTodosAnimais ();
+    Collection<Animal> listarTodosAnimais ();
 
 
     /**

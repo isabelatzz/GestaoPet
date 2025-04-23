@@ -6,12 +6,10 @@ import ProjetoPetShop.entities.Animal;
 import ProjetoPetShop.entities.Tutor;
 import ProjetoPetShop.exception.TutorCadastrado;
 import ProjetoPetShop.exception.AnimalNaoExiste;
+import ProjetoPetShop.exception.TutorNaoEncontradoException;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Implementação concreta do gerenciador de pets e tutores do sistema PetShop.
@@ -98,7 +96,7 @@ public class PetLoverMap implements PetLoverInterface {
         }
         tutor.getAnimais().add(animal);
 
-        proximoIdAnimal++;
+        this.proximoIdAnimal = proximoIdAnimal+1;
         salvarDados();
     }
 
@@ -109,27 +107,26 @@ public class PetLoverMap implements PetLoverInterface {
     }
 
     @Override
-    public List<Animal> listarAnimaisPorTutor(String cpf) {
-        Tutor tutor = tutores.get(cpf);
-        if (tutor == null) {
-            return new ArrayList<>();
+    public List<Animal> listarAnimaisPorTutor(String cpf) throws TutorNaoEncontradoException {
+        if(this.tutores.containsKey(cpf)){
+            return this.tutores.get(cpf).getAnimais();
+        } else {
+            throw new TutorNaoEncontradoException("O tutor com o cpf "+cpf+" não foi encontrado");
         }
-        return tutor.getAnimais();
     }
 
     @Override
     public void removerAnimal(int id) {
-        Animal animal = animais.remove(id);
-        if (animal != null) {
-            Tutor tutor = animal.getTutor();
-            tutor.getAnimais().remove(animal);
+        if(this.animais.containsKey(id)){
+            this.animais.remove(id);
+            this.animais.get(id).getTutor().getAnimais().remove(this.animais.get(id));
             salvarDados();
         }
     }
 
     @Override
-    public List<Animal> listarTodosAnimais() {
-        return new ArrayList<>(animais.values());
+    public Collection<Animal> listarTodosAnimais() {
+        return (Collection<Animal>) this.animais.values();
     }
 
 

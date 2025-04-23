@@ -5,6 +5,7 @@ import ProjetoPetShop.entities.Animal;
 import ProjetoPetShop.entities.Tutor;
 import ProjetoPetShop.exception.AnimalNaoExiste;
 
+import java.util.Collection;
 import java.util.List;
 
 public class AnimalController {
@@ -41,7 +42,7 @@ public class AnimalController {
         return petLoverMap.listarAnimaisPorTutor(cpfTutor);
     }
 
-    public List<Animal> listarTodosAnimais() {
+    public Collection<Animal> listarTodosAnimais() {
         return petLoverMap.listarTodosAnimais();
     }
 

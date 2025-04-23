@@ -1,10 +1,8 @@
 package ProjetoPetShop.controller;
 
 import ProjetoPetShop.entities.Tutor;
-import ProjetoPetShop.exception.TutorCadastrado;
 import ProjetoPetShop.system.petlover.PetLoverMap;
 
-import javax.swing.*;
 import java.util.List;
 
 public class TutorController {

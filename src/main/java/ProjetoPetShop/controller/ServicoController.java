@@ -6,7 +6,6 @@ import ProjetoPetShop.system.servico.ServicoPetLoverMap;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.List;
 
 public class ServicoController {
     private final PetLoverMap petLoverMap;
