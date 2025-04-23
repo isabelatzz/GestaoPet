@@ -10,6 +10,7 @@ import ProjetoPetShop.system.servico.ServicoPetLoverMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.List;
 
@@ -24,6 +25,13 @@ public class PetLoverTestes {
 
     @BeforeEach
     void setUp(){
+        try {
+            new File("data/animais.dat").delete();
+            new File("data/tutores.dat").delete();
+        } catch (Exception e) {
+            System.out.println("Não foi possível limpar arquivos de dados");
+        }
+
         sistema = new ServicoPetLoverMap();
         sistemaPetLover = new PetLoverMap();
 
@@ -141,7 +149,7 @@ public class PetLoverTestes {
     }
     @Test
     void testCadastrarTutorComSucesso(){
-        sistemaPetLover.cadastrarTutor(new Tutor("Jeff","24982749827","8274827247","Rua tal","jeff@gmail.com"));
+        sistemaPetLover.cadastrarTutor(tutorValido);
         Tutor tutorEncontrado = sistemaPetLover.buscarTutorPorCpf(tutorValido.getCpf());
 
         assertNotNull(tutorEncontrado,"Tutor deveria ser encontrado");
@@ -152,8 +160,7 @@ public class PetLoverTestes {
 
     @Test
     void testCadastrarTutorDuplicadoDeveLançarExceçao(){
-        //sistemaPetLover.cadastrarTutor(tutorValido);
-        //Não precisa cadastrar novamente pq já há um cadastro duplicado dentro do assertThrows()
+        sistemaPetLover.cadastrarTutor(tutorValido);
         assertThrows(
                 TutorCadastrado.class,
                 () -> sistemaPetLover.cadastrarTutor(tutorValido),
@@ -173,7 +180,7 @@ public class PetLoverTestes {
 
     @Test
     void testCadastrarAnimalComSucesso(){
-        //sistemaPetLover.cadastrarTutor(tutorValido);
+        sistemaPetLover.cadastrarTutor(tutorValido);
         sistemaPetLover.cadastrarAnimal(animalValido);
 
         Animal animalEncontrado = sistemaPetLover.buscarAnimalPorID(animalValido.getCodigo());
@@ -185,17 +192,17 @@ public class PetLoverTestes {
 
     @Test
     void testBuscarAnimalPorIDInexistente(){
-        //sistemaPetLover.cadastrarTutor(tutorValido);
-        //sistemaPetLover.cadastrarAnimal(animalValido);
+        sistemaPetLover.cadastrarTutor(tutorValido);
+        sistemaPetLover.cadastrarAnimal(animalValido);
 
-        assertNotNull(
-                sistemaPetLover.buscarAnimalPorID(2),
-                "Animal com ID=2 deveria existir!");
+        assertNull(
+                sistemaPetLover.buscarAnimalPorID(999),
+                "Retornar null porque não existe nenhum animal");
     }
 
     @Test
     void testListarAnimaisPorTutor(){
-        //sistemaPetLover.cadastrarTutor(tutorValido);
+        sistemaPetLover.cadastrarTutor(tutorValido);
         sistemaPetLover.cadastrarAnimal(animalValido);
 
         Animal animal2 = new Animal(2, "Peixinho", "Cachorro",
@@ -211,8 +218,8 @@ public class PetLoverTestes {
 
     @Test
     void testRemoverAnimal(){
-        //sistemaPetLover.cadastrarTutor(tutorValido);
-        //sistemaPetLover.cadastrarAnimal(animalValido);
+        sistemaPetLover.cadastrarTutor(tutorValido);
+        sistemaPetLover.cadastrarAnimal(animalValido);
 
         int idAnimal = animalValido.getCodigo();
         sistemaPetLover.removerAnimal(idAnimal);
@@ -220,24 +227,21 @@ public class PetLoverTestes {
         assertNull(sistemaPetLover.buscarAnimalPorID(idAnimal), "Animal deveria ter sido removido");
 
         // Verificar se foi removido da lista do tutor também
-//        List<Animal> animaisDoTutor = sistemaPetLover.listarAnimaisPorTutor(tutorValido.getCpf());
-//        assertTrue(animaisDoTutor == null, "Lista de animais deveria estar vazia");
+        List<Animal> animaisDoTutor = sistemaPetLover.listarAnimaisPorTutor(tutorValido.getCpf());
+        assertFalse(animaisDoTutor.contains(animalValido),
+                "Animal deveria ter sido removido da lista do tutor");
     }
 
     @Test
     void testAtualizarAnimal(){
-        //sistemaPetLover.cadastrarTutor(tutorValido);
+        sistemaPetLover.cadastrarTutor(tutorValido);
         sistemaPetLover.cadastrarAnimal(animalValido);
-
-        Tutor novoTutor = new Tutor("Mirelle", "58937948279", "59273687387",
-                "Rua São Paulo, Ita-PB", "mirelle@gmail.com");
-        sistemaPetLover.cadastrarTutor(novoTutor);
 
         // Modificar o animal
         animalValido.setNome("Rex Atualizado");
         animalValido.setEspecie("Cachorro Atualizado");
         animalValido.setRaca("Labrador Atualizado");
-        animalValido.setTutor(novoTutor);
+        animalValido.setTutor(tutorValido);
 
         sistemaPetLover.atualizarAnimal(animalValido);
 
@@ -246,27 +250,22 @@ public class PetLoverTestes {
         assertEquals("Rex Atualizado", animalAtualizado.getNome());
         assertEquals("Cachorro Atualizado", animalAtualizado.getEspecie());
         assertEquals("Labrador Atualizado", animalAtualizado.getRaca());
-        assertEquals(novoTutor.getCpf(), animalAtualizado.getTutor().getCpf());
+        assertEquals(tutorValido.getCpf(), animalAtualizado.getTutor().getCpf());
     }
 
     @Test
     void testListarTodosTutores(){
-        //sistemaPetLover.cadastrarTutor(tutorValido);
-
-        Tutor tutor2 = new Tutor("Jail", "4837984739842", "9735628757",
-                "Rua São João, GBA-PB", "jail@gmail.com");
-        sistemaPetLover.cadastrarTutor(tutor2);
-
+        sistemaPetLover.cadastrarTutor(tutorValido);
         List<Tutor> todosTutores = sistemaPetLover.listarTodosTutores();
 
-        assertEquals(5, todosTutores.size());
+        assertEquals(1, todosTutores.size());
         assertTrue(todosTutores.contains(tutorValido));
-        assertTrue(todosTutores.contains(tutor2));
+        assertTrue(todosTutores.contains(tutorValido));
     }
 
     @Test
     void testListarTodosAnimais(){
-        //sistemaPetLover.cadastrarTutor(tutorValido);
+        sistemaPetLover.cadastrarTutor(tutorValido);
         sistemaPetLover.cadastrarAnimal(animalValido);
 
         Animal animal2 = new Animal(2, "Jade", "Gato", "Siamês",
@@ -275,7 +274,7 @@ public class PetLoverTestes {
 
         Collection<Animal> todosAnimais = sistemaPetLover.listarTodosAnimais();
 
-        assertEquals(4, todosAnimais.size());
+        assertEquals(2, todosAnimais.size());
         assertTrue(todosAnimais.contains(animalValido));
         assertTrue(todosAnimais.contains(animal2));
     }

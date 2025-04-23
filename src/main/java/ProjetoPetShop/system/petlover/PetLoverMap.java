@@ -117,9 +117,17 @@ public class PetLoverMap implements PetLoverInterface {
 
     @Override
     public void removerAnimal(int id) {
-        if(this.animais.containsKey(id)){
-            this.animais.remove(id);
-            this.animais.get(id).getTutor().getAnimais().remove(this.animais.get(id));
+        Animal animal = animais.get(id);
+        if (animal != null) {
+            // Remove do mapa principal
+            animais.remove(id);
+
+            // Remove da lista do tutor
+            Tutor tutor = animal.getTutor();
+            if (tutor != null && tutor.getAnimais() != null) {
+                tutor.getAnimais().remove(animal);
+            }
+
             salvarDados();
         }
     }
