@@ -16,7 +16,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PetLoverTestes {
+public class PetLoverTest {
     private ServicoPetLoverMap sistema;
     private Tutor tutorValido;
     private Animal animalValido;
@@ -25,16 +25,15 @@ public class PetLoverTestes {
 
     @BeforeEach
     void setUp(){
-        try {
+        try{
             new File("data/animais.dat").delete();
             new File("data/tutores.dat").delete();
-        } catch (Exception e) {
+        } catch (Exception e){
             System.out.println("Não foi possível limpar arquivos de dados");
         }
 
         sistema = new ServicoPetLoverMap();
         sistemaPetLover = new PetLoverMap();
-
 
         tutorValido = new Tutor("Isabella", "166090224-50", "83996091886",
                 "Rua São Pedro,25,RT-PB", "isabella@gmail.com");
@@ -147,6 +146,7 @@ public class PetLoverTestes {
                         "75 (base) + 11.25 (15%) = 86.25")
         );
     }
+
     @Test
     void testCadastrarTutorComSucesso(){
         sistemaPetLover.cadastrarTutor(tutorValido);
@@ -155,8 +155,6 @@ public class PetLoverTestes {
         assertNotNull(tutorEncontrado,"Tutor deveria ser encontrado");
         assertEquals(tutorValido.getCpf(),tutorEncontrado.getCpf(),"CPF não corresponde");
     }
-
-
 
     @Test
     void testCadastrarTutorDuplicadoDeveLançarExceçao(){
@@ -169,13 +167,12 @@ public class PetLoverTestes {
 
     @Test
     void testCadastrarAnimalComTutorNaoCadastrado(){
-        //sistemaPetLover.cadastrarAnimal(animalValido);
-        Animal a = new Animal(1,"Apolo","Gato","Não identificada",4,null); //animal cadastrado com um tutor vinculado inexistente (null)
+        animalValido.setTutor(null);
         assertThrows(
                 IllegalArgumentException.class,
                 () -> {
-            sistemaPetLover.cadastrarAnimal(a);
-        }, "Deveria lançar exceção quando tutor não está cadastrado");
+                    sistemaPetLover.cadastrarAnimal(animalValido);
+                }, "Deveria lançar exceção quando tutor não está cadastrado");
     }
 
     @Test
@@ -278,4 +275,12 @@ public class PetLoverTestes {
         assertTrue(todosAnimais.contains(animalValido));
         assertTrue(todosAnimais.contains(animal2));
     }
+
+
+
+
+
+
+
+
 }
