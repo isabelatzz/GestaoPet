@@ -1,6 +1,6 @@
 # 🐾 PetLover (Sistema de Gestão para PetShops)
 
-> Projeto em andamento para gestão de pet shops com interface gráfica em Java Swing.
+> Projeto acadêmico para gestão de pet shops com interface gráfica em Java Swing.
 
 ## 📌 Sobre o Projeto
 
@@ -13,28 +13,34 @@ Este repositório representa a fase inicial do projeto e ainda está em desenvol
 3. Listar serviços e serviços pendentes
 4. Gerar recibos em PDF 
 
-[//]: # (## 📌Diagrama UML) 
+# Imagens do Sistema 
 
-[//]: # (![PetLoverUML]&#40;src/main/resources/diagrama.png "diagrama"&#41;)
+### 📌 Cadastro de Tutores
+![Cadastro de Tutores](src/main/resources/tela_tutores.png)
 
----
+### 📌 Cadastro de Animais
+![Cadastro de Animais](src/main/resources/tela_animais.png)
 
-## 🚀 Últimas Atualizações  
-### 📅 22/04/2025  
-1. **Adição dos Testes Unitários ✅**
-   - Estudos de testes a partir de >> https://junit.org/junit5/docs/current/user-guide/ <<  
-3. **Documentação ✅**
-4. **Interface Swing ✅**
-5. **Persistência de Dados em Arquivos✅**
-
-## 📌 Próximos passos  
-  - Correções e melhorias da interface
-  - Melhorar documentação
+### 📌 Gerenciamento de Serviços e Emissão de Recibos
+![Tela de Recibos](src/main/resources/tela_serviços.png)
    
 ## 🛠️ Tecnologias Utilizadas
 
 - **Java 17+**
-- **Java Swing (GUI)**
-- **Padrões de Projeto** (Interface, MVC - a definir)
-- **Apache PDFBox 2.0.27**
-- **JUnit 5**
+- **Java Swing (GUI)** (Interface Gráfica)
+- **Padrões de Projeto** (Interface, MVC)
+- **Apache PDFBox 2.0.27** (Geração de PDFs)
+- **JUnit 5** (Testes Unitários)
+
+---
+
+## 🧑‍💻 Como Executar o Projeto
+
+Para rodar o projeto **PetLover** na sua máquina, siga os passos abaixo:
+
+### ✅ Pré-requisitos
+
+- Java JDK **17 ou superior** instalado
+- Uma IDE de sua preferência (recomenda-se **IntelliJ IDEA**)
+- Git (opcional, para clonar o repositório)
+  
